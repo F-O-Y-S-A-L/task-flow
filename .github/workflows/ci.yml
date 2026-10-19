@@ -29,7 +29,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm install
-      - run: npm verify
+      - run: npm run verify
         env:
           NODE_ENV: test
           MONGODB_URI: mongodb://127.0.0.1:27017/taskflow_test
