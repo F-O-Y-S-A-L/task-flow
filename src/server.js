@@ -14,7 +14,7 @@ async function start() {
   const server = http.createServer(app);
 
   server.listen(env.PORT, () => {
-    console.log(`TaskFlow API listening on port ${env.PORT}`);
+    console.log(`TaskFlow API listening on ports ${env.PORT}`);
   });
 
   const shutdown = async (signal) => {
