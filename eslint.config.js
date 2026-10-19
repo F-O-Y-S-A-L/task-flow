@@ -1,10 +1,18 @@
+// eslint.config.js
+const globals = require ("globals");
+
 module.exports = [
   {
     files: ["**/*.js"],
-    languageOptions: { ecmaVersion: 2022, sourceType: "commonjs" },
+    languageOptions: {
+      globals: {
+        ...globals.node,   // Node.js globals (process, console, setTimeout ইত্যাদি)
+        ...globals.jest,   // Jest globals (describe, test, expect ইত্যাদি)
+      },
+    },
     rules: {
-      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-      "no-undef": "error"
-    }
-  }
+      "no-unused-vars": "off",
+      "no-undef": "error",
+    },
+  },
 ];

@@ -2,11 +2,16 @@ const request = require("supertest");
 const app = require("../src/app");
 const redis = require("../src/config/redis");
 const { emailQueue } = require("../src/config/queue");
+const { default: mongoose } = require("mongoose");
 
 describe("health endpoints", () => {
   afterAll(async () => {
-    await emailQueue.close();
-    await redis.quit();
+    await emailQueue.close(); // BullMQ queue বন্ধ
+    if (mongoose.connection.readyState) {
+      await mongoose.connection.close(); // MongoDB connection বন্ধ
+    }
+    redis.removeAllListeners(); // Redis event listener remove
+    await redis.quit(); // Redis client quit
   });
 
   test("liveness endpoint returns ok", async () => {
